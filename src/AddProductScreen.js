@@ -1,7 +1,10 @@
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import ImageCropPicker from 'react-native-image-crop-picker'
 import InputComponent from './components/InputComponent'
+import SelectDropdown from 'react-native-select-dropdown'
+import { categoryList } from './data/Data'
+import realm from '../store/realm'
 
 const AddProductScreen = () => {
     const [productData, setProductData] = useState(
@@ -16,6 +19,8 @@ const AddProductScreen = () => {
             phoneNumber: ''
         }
     )
+
+    const dropdownRef = useRef({})
 
     const addImage = () => {
         ImageCropPicker.openPicker({
@@ -35,8 +40,46 @@ const AddProductScreen = () => {
         })
     }
 
+    const saveData = () => {
+        if (productData.productName === '' || productData.description === '') {
+            alert('Please fill product name')
+        } else {
+            const allData = realm.objects('Product')
+            const lastId = allData.length === 0 ? 0 : allData[allData.length - 1].id
+
+            realm.write(() => {
+                realm.create('Product', {
+                    id: lastId + 1,
+                    productName: productData.productName,
+                    imagePath: productData.imagePath,
+                    category: productData.category,
+                    description: productData.description,
+                    price: parseInt(productData.price),
+                    instagram: productData.instagram,
+                    facebook: productData.facebook,
+                    phoneNumber: productData.phoneNumber
+                })
+            })
+
+            setProductData({
+                productName: '',
+                imagePath: '',
+                category: null,
+                description: '',
+                price: '',
+                instagram: '',
+                facebook: '',
+                phoneNumber: '',
+            });
+
+
+            dropdownRef.current.reset()
+        }
+    }
+
     useEffect(() => {
-        console.log(productData)
+        const allData = realm.objects('Product')
+        console.log(allData)
     })
 
     return (
@@ -59,6 +102,22 @@ const AddProductScreen = () => {
                         placeholder="Product Name"
                         value={productData.productName}
                         onChangeText={(text) => onInputChange('productName', text)}
+                    />
+                    <SelectDropdown
+                        data={categoryList}
+                        defaultButtonText='Select Category'
+                        onSelect={(item) => {
+                            onInputChange('category', item.id)
+                        }}
+                        buttonTextAfterSelection={(item) => {
+                            return item.name
+                        }}
+                        rowTextForSelection={(item) => {
+                            return item.name
+                        }}
+                        buttonStyle={styles.selectDropdown}
+                        buttonTextStyle={styles.selectText}
+                        ref={dropdownRef}
                     />
                 </View>
                 <View style={styles.horizontalContainer}>
@@ -103,7 +162,9 @@ const AddProductScreen = () => {
                     type="font-awesome"
                 />
                 <View style={styles.buttonContainer}>
-                    <TouchableOpacity style={styles.saveButton}>
+                    <TouchableOpacity style={styles.saveButton}
+                        onPress={() => saveData()}
+                    >
                         <Text style={styles.saveText}>Save</Text>
                     </TouchableOpacity>
                 </View>
@@ -169,6 +230,16 @@ const styles = StyleSheet.create({
     },
     saveText: {
         color: 'black'
+    },
+    selectDropdown: {
+        borderRadius: 10,
+        backgroundColor: 'skyblue',
+        width: 150,
+        height: 30,
+        marginLeft: 8
+    },
+    selectText: {
+        fontSize: 12
     }
 
 })
