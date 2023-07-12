@@ -41,8 +41,10 @@ const AddProductScreen = () => {
     }
 
     const saveData = () => {
-        if (productData.productName === '' || productData.description === '') {
+        if (productData.productName === '' || productData.imagePath === '' || productData.description === '' || productData.price === '' || productData.category === null) {
             alert('Please fill product name')
+        } else if (productData.phoneNumber === '' && productData.instagram === '' && productData.facebook === '') {
+            alert('Please fill at least one seller contact!');
         } else {
             const allData = realm.objects('Product')
             const lastId = allData.length === 0 ? 0 : allData[allData.length - 1].id
