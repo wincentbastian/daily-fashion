@@ -110,10 +110,10 @@ const AddProductScreen = () => {
                             onInputChange('category', item.id)
                         }}
                         buttonTextAfterSelection={(item) => {
-                            return item.name
+                            return item.id
                         }}
                         rowTextForSelection={(item) => {
-                            return item.name
+                            return item.id
                         }}
                         buttonStyle={styles.selectDropdown}
                         buttonTextStyle={styles.selectText}
