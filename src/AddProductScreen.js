@@ -138,7 +138,7 @@ const AddProductScreen = () => {
                 </View>
                 <Text style={styles.sellerText}>Seller Contact</Text>
                 <InputComponent
-                    placeholder="wa number"
+                    placeholder="WA number"
                     value={productData.phoneNumber}
                     onChangeText={(text) => onInputChange('phoneNumber', text)}
                     isIcon={true}
@@ -146,7 +146,7 @@ const AddProductScreen = () => {
                     type="font-awesome"
                 />
                 <InputComponent
-                    placeholder="instagram"
+                    placeholder="Instagram"
                     value={productData.instagram}
                     onChangeText={(text) => onInputChange('instagram', text)}
                     isIcon={true}
@@ -154,7 +154,7 @@ const AddProductScreen = () => {
                     type="font-awesome"
                 />
                 <InputComponent
-                    placeholder="facebook"
+                    placeholder="Facebook"
                     value={productData.facebook}
                     onChangeText={(text) => onInputChange('facebook', text)}
                     isIcon={true}
