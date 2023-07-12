@@ -85,7 +85,7 @@ const AddProductScreen = () => {
     })
 
     return (
-        <View style={styles.mainContainer}>
+        <View style={styles.mainContainers}>
             <ScrollView style={styles.scroll}>
                 <View style={styles.imageContainer}>
                     <TouchableOpacity
@@ -178,7 +178,7 @@ const AddProductScreen = () => {
 export default AddProductScreen
 
 const styles = StyleSheet.create({
-    mainContainer: {
+    mainContainers: {
         flex: 1,
         backgroundColor: 'white'
     },
