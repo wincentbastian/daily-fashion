@@ -2,10 +2,11 @@ import { View, Text } from 'react-native'
 import React from 'react'
 import { createDrawerNavigator } from '@react-navigation/drawer'
 import { createStackNavigator } from '@react-navigation/stack'
-import HomeScreen from '../HomeScreen'
 import { NavigationContainer } from '@react-navigation/native'
 import { Icon } from 'react-native-elements'
-import AddProductScreen from '../AddProductScreen'
+import ShowProductScreen from '../screens/ShowProductScreen'
+import HomeScreen from '../screens/HomeScreen'
+import AddProductScreen from '../screens/AddProductScreen'
 
 const Drawer = createDrawerNavigator()
 const Stack = createStackNavigator()
@@ -37,7 +38,7 @@ const DrawerNav = () => {
 const MainNavigator = () => {
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName='AddProduct'>
+            <Stack.Navigator initialRouteName='ShowProduct'>
                 <Stack.Screen
                     name='Drawer'
                     component={DrawerNav}
@@ -46,6 +47,11 @@ const MainNavigator = () => {
                 <Stack.Screen
                     name='AddProduct'
                     component={AddProductScreen}
+                    options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                    name='ShowProduct'
+                    component={ShowProductScreen}
                     options={{ headerShown: false }}
                 />
             </Stack.Navigator>
