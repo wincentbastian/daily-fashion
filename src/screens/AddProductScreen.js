@@ -1,10 +1,10 @@
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native'
 import React, { useEffect, useRef, useState } from 'react'
 import ImageCropPicker from 'react-native-image-crop-picker'
-import InputComponent from './components/InputComponent'
+import InputComponent from '../components/InputComponent'
 import SelectDropdown from 'react-native-select-dropdown'
-import { categoryList } from './data/Data'
-import realm from '../store/realm'
+import { categoryList } from '../data/Data'
+import realm from '../../store/realm'
 
 const AddProductScreen = () => {
     const [productData, setProductData] = useState(
