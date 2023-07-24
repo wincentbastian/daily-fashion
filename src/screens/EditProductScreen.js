@@ -5,6 +5,7 @@ import {
   ScrollView,
   TouchableOpacity,
   Image,
+Alert
 } from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
 import ImageCropPicker from 'react-native-image-crop-picker';
@@ -13,11 +14,15 @@ import SelectDropdown from 'react-native-select-dropdown';
 import {categoryList} from '../data/Data';
 import realm from '../../store/realm';
 import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp
+    widthPercentageToDP as wp,
+    heightPercentageToDP as hp
 } from 'react-native-responsive-screen-hooks'
 
-const AddProductScreen = () => {
+const EditProductScreen = (props) => {
+  const {route} = props;
+
+  const productId = route.params.idProduct;
+
   const [productData, setProductData] = useState({
     productName: '',
     imagePath: '',
@@ -29,69 +34,67 @@ const AddProductScreen = () => {
     phoneNumber: '',
   });
 
-  const dropdownRef = useRef({});
-
-  const addImage = () => {
-    ImageCropPicker.openPicker({
-      width: 2000,
-      height: 2000,
-      cropping: true,
-    })
-      .then(image => {
-        setProductData({...productData, imagePath: image.path});
-      })
-      .catch(errorMessage => {
-        console.log(errorMessage);
-      });
-  };
-
   const onInputChange = (type, value) => {
     setProductData({
-      ...productData,
-      [type]: value,
-    });
-  };
+        ...productData,
+        [type]: value
+    })
+  }
 
-  const saveData = () => {
+  const addImage = () => {
+    ImagePicker.openPicker({
+   width: 2000,
+   height: 2000,
+   cropping: true
+    }).then(image => {
+    console.log(image)
+   setProductData({
+   ...productData,
+   imagePath: image.path
+    });
+    }).catch(errorMessage => {
+    console.log(errorMessage);
+    });
+   };
+
+const saveData = () => {
     if (productData.productName === '' || productData.description === '') {
       alert('Please fill product name');
     } else {
-      const allData = realm.objects('Product');
-      const lastId = allData.length === 0 ? 0 : allData[allData.length - 1].id;
-
-      realm.write(() => {
-        realm.create('Product', {
-          id: lastId + 1,
-          productName: productData.productName,
-          imagePath: productData.imagePath,
-          category: productData.category,
-          description: productData.description,
-          price: parseInt(productData.price),
-          instagram: productData.instagram,
-          facebook: productData.facebook,
-          phoneNumber: productData.phoneNumber,
-        });
-      });
-
-      setProductData({
-        productName: '',
-        imagePath: '',
-        category: null,
-        description: '',
-        price: '',
-        instagram: '',
-        facebook: '',
-        phoneNumber: '',
-      });
-
-      dropdownRef.current.reset();
+        const updatedData = realm.objects('Product').filtered(`id = ${idProduct}`)[0]
+        realm.write(() => {
+            updatedData.productName = productData.productName;
+            updatedData.imagePath = productData.imagePath;
+            updatedData.category = productData.category;
+            updatedData.description = productData.description;
+            updatedData.price = parseInt(productData.price);
+            updatedData.instagram = productData.instagram;
+            updatedData.facebook = productData.facebook;
+            updatedData.phoneNumber = productData.phoneNumber;
+            });
+        Alert.alert(
+            "Success",
+            "Successfully update your product information!",
+            [{
+                text: "OK", onPress: () => NavigationContainer.goBack()
+            }]
+        )
     }
-  };
 
   useEffect(() => {
-    const allData = realm.objects('Product');
-    console.log(allData);
-  });
+    const data = realm.objects('Product').filtered(`id = ${productId}`)[0];
+    setProductData({
+      productName: data.productName,
+      imagePath: data.imagePath,
+      category: data.category,
+      description: data.description,
+      price: String(data.price),
+      instagram: data.instagram,
+      facebook: data.facebook,
+      phoneNumber: data.phoneNumber,
+    });
+  }, [productId]);
+//   console.log(data[0].productName)
 
   return (
     <View style={styles.mainContainer}>
@@ -123,6 +126,7 @@ const AddProductScreen = () => {
           <SelectDropdown
             data={categoryList}
             defaultButtonText="Select Category"
+            defaultValueByIndex={productData.category - 1}
             onSelect={item => {
               onInputChange('category', item.id);
             }}
@@ -134,7 +138,7 @@ const AddProductScreen = () => {
             }}
             buttonStyle={styles.selectDropdown}
             buttonTextStyle={styles.selectText}
-            ref={dropdownRef}
+            // ref={dropdownRef}
           />
         </View>
         <View style={styles.horizontalContainer}>
@@ -188,9 +192,9 @@ const AddProductScreen = () => {
       </ScrollView>
     </View>
   );
-};
+}};
 
-export default AddProductScreen;
+export default EditProductScreen;
 
 const styles = StyleSheet.create({
   mainContainer: {
@@ -258,4 +262,4 @@ const styles = StyleSheet.create({
   selectText: {
     fontSize: hp('1.5%'),
   },
-});
+})

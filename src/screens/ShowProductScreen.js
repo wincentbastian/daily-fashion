@@ -5,28 +5,31 @@ import {
   FlatList,
   TouchableOpacity,
   Image,
-  Linking
+  Linking,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import realm from '../../store/realm';
 import {Icon} from 'react-native-elements';
 import {MediaComponents} from '../components/MediaComponents';
-import { Link } from '@react-navigation/native';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp
+} from 'react-native-responsive-screen-hooks'
 
 const ShowProductScreen = props => {
   const {navigation} = props;
 
   // const {route} = props;
 
-  const onClickMedia = (type) => {
+  const onClickMedia = type => {
     if (type === 'whatsapp') {
-      Linking.openURL('')
+      Linking.openURL('https://web.whatsapp.com/');
     } else if (type === 'instagram') {
-      Linking.openURL('')
+      Linking.openURL('https://www.instagram.com/');
     } else if (type === 'facebook') {
-      Linking.openURL('')
+      Linking.openURL('https://www.facebook.com/');
     }
-  }
+  };
 
   // const category = route.params.categoryId;
 
@@ -50,7 +53,7 @@ const ShowProductScreen = props => {
   const [data, setData] = useState([]);
 
   const collectData = () => {
-    const allData = realm.objects('Product')
+    const allData = realm.objects('Product');
     setData(allData);
   };
 
@@ -70,10 +73,19 @@ const ShowProductScreen = props => {
         keyExtractor={item => item.id}
         renderItem={({item}) => {
           return (
-            <TouchableOpacity style={styles.itemButton}>
+            <TouchableOpacity
+              style={styles.itemButton}
+              onPress={() =>
+                navigation.navigate('EditProduct', {idProduct: item.id})
+              }>
               <View style={styles.productContainer}>
-                <TouchableOpacity onPress={() => navigation.navigate('ImageZoom', {imagePath: item.imagePath})}>
-                <Image style={styles.image} source={{uri: item.imagePath}} />
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.navigate('ImageZoom', {
+                      imagePath: item.imagePath,
+                    })
+                  }>
+                  <Image style={styles.image} source={{uri: item.imagePath}} />
                 </TouchableOpacity>
                 <View style={styles.textContainer}>
                   <Text style={styles.title}>{item.productName}</Text>
