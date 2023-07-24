@@ -5,18 +5,30 @@ import {
   FlatList,
   TouchableOpacity,
   Image,
+  Linking
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import realm from '../../store/realm';
 import {Icon} from 'react-native-elements';
 import {MediaComponents} from '../components/MediaComponents';
+import { Link } from '@react-navigation/native';
 
 const ShowProductScreen = props => {
   const {navigation} = props;
 
-  const {route} = props;
+  // const {route} = props;
 
-  const category = route.params.category;
+  const onClickMedia = (type) => {
+    if (type === 'whatsapp') {
+      Linking.openURL('')
+    } else if (type === 'instagram') {
+      Linking.openURL('')
+    } else if (type === 'facebook') {
+      Linking.openURL('')
+    }
+  }
+
+  // const category = route.params.categoryId;
 
   const [isBuy, setIsBuy] = useState(false);
 
@@ -38,7 +50,7 @@ const ShowProductScreen = props => {
   const [data, setData] = useState([]);
 
   const collectData = () => {
-    const allData = realm.objects('Product').filtered(`category=${category}`);
+    const allData = realm.objects('Product')
     setData(allData);
   };
 
@@ -60,7 +72,9 @@ const ShowProductScreen = props => {
           return (
             <TouchableOpacity style={styles.itemButton}>
               <View style={styles.productContainer}>
+                <TouchableOpacity onPress={() => navigation.navigate('ImageZoom', {imagePath: item.imagePath})}>
                 <Image style={styles.image} source={{uri: item.imagePath}} />
+                </TouchableOpacity>
                 <View style={styles.textContainer}>
                   <Text style={styles.title}>{item.productName}</Text>
                   <Text style={styles.text}>{item.description}</Text>
@@ -97,18 +111,21 @@ const ShowProductScreen = props => {
               <MediaComponents
                 source={require('../../assets/images/whatsapp.png')}
                 value={contact.phoneNumber}
+                onPress={() => onClickMedia('whatsapp')}
               />
             ) : null}
             {contact.instagram !== '' ? (
               <MediaComponents
                 source={require('../../assets/images/instagram.png')}
                 value={contact.instagram}
+                onPress={() => onClickMedia('instagram')}
               />
             ) : null}
             {contact.facebook !== '' ? (
               <MediaComponents
                 source={require('../../assets/images/facebook.png')}
                 value={contact.facebook}
+                onPress={() => onClickMedia('facebook')}
               />
             ) : null}
           </View>
@@ -143,8 +160,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   image: {
-    width: 100,
-    height: 100,
+    width: wp('25%'),
+    height: wp('25%'),
   },
   textContainer: {
     flex: 1,
@@ -153,12 +170,12 @@ const styles = StyleSheet.create({
   },
   title: {
     color: 'black',
-    fontSize: 18,
+    fontSize: hp('2.5%'),
     fontWeight: 'bold',
   },
   text: {
     color: 'black',
-    fontSize: 16,
+    fontSize: hp('2%'),
   },
   unsearchBox: {
     alignItems: 'center',

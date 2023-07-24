@@ -7,6 +7,7 @@ import { Icon } from 'react-native-elements'
 import ShowProductScreen from '../screens/ShowProductScreen'
 import HomeScreen from '../screens/HomeScreen'
 import AddProductScreen from '../screens/AddProductScreen'
+import ImageZoomScreen from '../screens/ImageZoomScreen'
 
 const Drawer = createDrawerNavigator()
 const Stack = createStackNavigator()
@@ -52,6 +53,11 @@ const MainNavigator = () => {
                 <Stack.Screen
                     name='ShowProduct'
                     component={ShowProductScreen}
+                    options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                    name='ImageZoom'
+                    component={ImageZoomScreen}
                     options={{ headerShown: false }}
                 />
             </Stack.Navigator>

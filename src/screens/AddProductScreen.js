@@ -97,11 +97,10 @@ const AddProductScreen = () => {
             style={styles.imageButton}
             onPress={() => addImage()}>
             <Image
-              style={
-                productData.imagePath !== ''
-                  ? styles.imageStyleNull
-                  : styles.imageStyle
-              }
+              style={{
+                width: productData.imagePath !== '' ? wp('50%') : 50,
+                height: productData.imagePath !== '' ? wp('50%') : 50,
+              }}
               source={{
                 uri:
                   productData.imagePath !== ''
@@ -211,8 +210,8 @@ const styles = StyleSheet.create({
     marginVertical: 8,
   },
   imageButton: {
-    width: 200,
-    height: 200,
+    width: wp('50%'),
+    height: wp('50%'),
     borderWidth: 0.5,
     justifyContent: 'center',
     alignItems: 'center',
@@ -222,7 +221,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
   },
   sellerText: {
-    fontSize: 18,
+    fontSize: hp('2.5%'),
     fontWeight: 'bold',
     marginTop: 16,
     marginLeft: 8,
@@ -248,11 +247,11 @@ const styles = StyleSheet.create({
   selectDropdown: {
     borderRadius: 10,
     backgroundColor: 'skyblue',
-    width: 150,
-    height: 30,
+    width: wp('40%'),
+    height: hp('4%'),
     marginLeft: 8,
   },
   selectText: {
-    fontSize: 12,
+    fontSize: hp('1.5%'),
   },
 });
