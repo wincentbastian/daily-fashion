@@ -136,6 +136,7 @@ const AddProductScreen = () => {
                         isIcon={true}
                         name="dollar"
                         type="font-awesome"
+                        keyboardShouldPersistTaps={'numeric'}
                     />
                 </View>
                 <Text style={styles.sellerText}>Seller Contact</Text>
@@ -146,6 +147,7 @@ const AddProductScreen = () => {
                     isIcon={true}
                     name="whatsapp"
                     type="font-awesome"
+                    keyboardShouldPersistTaps={'phone-pad'}
                 />
                 <InputComponent
                     placeholder="instagram"

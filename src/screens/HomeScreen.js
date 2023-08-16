@@ -27,13 +27,14 @@ const HomeScreen = (props) => {
                 showsVerticalScrollIndicator={false}
                 renderItem={({ item }) => {
                     return (
-                        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('ShowProduct', {categoryId: item.id})}>
+                        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('ShowProduct', {category: item.id})}>
                             <Image
                                 source={{ uri: item.icon }}
                                 style={styles.icon}
                             />
                             <Text style={styles.itemName}>{item.name}</Text>
-                        </TouchableOpacity>)
+                        </TouchableOpacity>
+                        )
                 }}
             />
         </View>

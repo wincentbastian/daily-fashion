@@ -19,7 +19,7 @@ const InputComponent = (props) => {
                 styles.input,
                 {
                     height: isDescription ?
-                        100 : 40
+                        110:50
                 }
             ]}
                 multiline={true}
@@ -42,6 +42,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         textAlignVertical: 'bottom',
         fontSize: 16,
-        width: '100%'
+        width: '100%',
+        marginTop:-20
     }
 })

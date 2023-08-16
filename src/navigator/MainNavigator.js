@@ -7,6 +7,9 @@ import { NavigationContainer } from '@react-navigation/native'
 import { Icon } from 'react-native-elements'
 import AddProductScreen from '../screens/AddProductScreen'
 import ShowProductScreen from '../screens/ShowProductScreen'
+import EditProductScreen from "../screens/EditProductScreen";
+import DetailTrainingScreen from "../screens/DetailTrainingScreen"
+
 
 const Drawer = createDrawerNavigator()
 const Stack = createStackNavigator()
@@ -63,7 +66,35 @@ const MainNavigator = () => {
                 <Stack.Screen
                     name='ShowProduct'
                     component={ShowProductScreen}
-                    options={{ headerShown: false }}
+                    options={{
+                        title: 'FreeTraining',
+                        headerTitleAlign: 'center',
+                        headerStyle: {
+                            backgroundColor: '#D1E5C2'
+                        },
+                    }}
+                />
+                <Stack.Screen
+                    name='DetailTraining'
+                    component={DetailTrainingScreen}
+                    options={{
+                        title: 'Detail',
+                        headerTitleAlign: 'center',
+                        headerStyle: {
+                            backgroundColor: '#D1E5C2'
+                        },
+                    }}
+                />
+                <Stack.Screen
+                    name="EditProduct"
+                    component={EditProductScreen}
+                    options={{
+                        title: 'AddTraining',
+                        headerTitleAlign: 'center',
+                        headerStyle: {
+                            backgroundColor: '#D1E5C2'
+                        },
+                    }}
                 />
 
             </Stack.Navigator>

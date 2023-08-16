@@ -8,10 +8,9 @@ export const MediaComponent = (props) => {
             {...props}
         >
             <Image
-                style={styles.image}
                 {...props}
             />
-            <Text style={styles.text}>{value}</Text>
+            <Text style={styles.textt}>{value}</Text>
         </TouchableOpacity>
     )
 };
@@ -25,7 +24,13 @@ const styles = StyleSheet.create({
         color: 'black', fontSize: 18,
         marginLeft: 8
     },
+    textt: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        margin: 10
+    },
     image: {
-        width: 30, height: 30
+        width: 300, height: 300
     }
 });
