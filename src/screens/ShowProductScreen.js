@@ -1,3 +1,4 @@
+//Home Screen Training
 import { View, Text, FlatList, Image, TouchableOpacity, StyleSheet } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { Icon, CheckBox } from 'react-native-elements'

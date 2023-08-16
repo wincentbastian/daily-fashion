@@ -1,3 +1,4 @@
+//AddScreen Training
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image, Alert } from 'react-native'
 import React, { useEffect, useRef, useState, } from 'react'
 import ImageCropPicker from 'react-native-image-crop-picker'
