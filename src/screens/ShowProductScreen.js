@@ -26,20 +26,6 @@ const ShowProductScreen = (props) => {
     setFinal(newData)
 }, []);
 
-  const getCurrentDate = () => {
-    const months = [
-        "January", "February",
-        "March", "April", "May",
-        "June", "July", "August",
-        "September", "October",
-        "November", "December"
-    ];
-    const currentDate = new Date();
-    const dateOnly = currentDate.getDate();
-    const monthOnly = currentDate.getMonth();
-    const yearOnly = currentDate.getFullYear();
-    return months[monthOnly] + ' ' + dateOnly + ', ' + yearOnly;
-};
   return (
     <View style={styles.mainContainer}>
       <SliderBox
@@ -49,12 +35,24 @@ const ShowProductScreen = (props) => {
         sliderBoxHeight={200}
       />
       <FlatList
-        data={olahragaList}
+        data={data}
         contentContainerStyle={styles.flatListContainer}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => {
           return (
-            <Text></Text>
+            <TouchableOpacity style={styles.itemButton} onPress={() => navigation.navigate('TrainingScreen', { trainingId: item.id })}>
+            <View style={styles.trainingContainer}>
+              <Image
+                style={styles.image}
+                source={{ uri: item.image }}
+              />
+
+              <View style={styles.textContainer}>
+                <Text style={styles.title}>{item.name}</Text>
+                <Text style={styles.text}>{item.date}</Text>
+              </View>
+            </View>
+            </TouchableOpacity>
           )
         }}
         ListEmptyComponent={
@@ -93,5 +91,24 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
     padding: 16,
     borderRadius: 100
-  }
+  },
+  textContainer: {
+    flex: 1,
+    marginLeft: 16,
+    justifyContent: 'center'
+  },
+  trainingContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    borderRadius:100
+  },
+  title: {
+    color: 'black',
+    fontSize: 18,
+    fontWeight: 'bold'
+  },
+  text: {
+    color: 'black',
+    fontSize: 16
+  },
 })

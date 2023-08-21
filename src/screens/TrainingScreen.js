@@ -1,4 +1,4 @@
-//Detail Add Training
+//Gambar TrainingHomeScreen Di Pencet
 import { View, Text, StyleSheet } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { MediaComponent } from '../components/MediaComponent'
@@ -10,7 +10,7 @@ import { olahragaList, ototPerutList } from '../data/DataFreeTraining'
 import realm from '../../store/realm'
 
 
-const OlahragaOtotPerut = (props) => {
+const TrainingScreen = (props) => {
     const { navigation } = props
     const [data, setData] = useState([])
     const { route } = props
@@ -28,24 +28,6 @@ const OlahragaOtotPerut = (props) => {
         const allData = olahragaList.filter(olahragaList => olahragaList.id === trainingId)
         console.log(allData)
     })
-
-    const saveData = () => {
-        const allData = olahragaList.filter(olahragaList => olahragaList.id === trainingId)
-        const lastId = allData.length === 0 ? 0 : allData[allData.length - 1].id
-
-        // realm.write(() => {
-        //     realm.create('Training', {
-        //         id: lastId + 1,
-        //         date: new Date().toISOString() ,
-        //         name: allData.name,
-        //     })
-        // })
-        console.log(lastId + 1)
-        console.log(new Date().toISOString())
-        console.log(allData.name)
-    }
-
- 
    
 
     return (
@@ -66,20 +48,13 @@ const OlahragaOtotPerut = (props) => {
 
                     )
                 }}
-                ListFooterComponent={
-                    <ButtonComponent
-                        onPress={() => saveData() === navigation.navigate('ShowProduct')}
-                        backgroundColor="green"
-                        title="Selesai"
-                    />
-                }
             />
 
         </View>
     )
 }
 
-export default OlahragaOtotPerut
+export default TrainingScreen
 
 const styles = StyleSheet.create({
     mainContainer: {

@@ -9,6 +9,7 @@ import AddProductScreen from '../screens/AddProductScreen'
 import ShowProductScreen from '../screens/ShowProductScreen'
 import EditProductScreen from "../screens/EditProductScreen";
 import DetailTrainingScreen from "../screens/DetailTrainingScreen"
+import TrainingScreen from '../screens/TrainingScreen'
 
 
 const Drawer = createDrawerNavigator()
@@ -77,6 +78,17 @@ const MainNavigator = () => {
                 <Stack.Screen
                     name='DetailTraining'
                     component={DetailTrainingScreen}
+                    options={{
+                        title: 'Detail',
+                        headerTitleAlign: 'center',
+                        headerStyle: {
+                            backgroundColor: '#D1E5C2'
+                        },
+                    }}
+                />
+                <Stack.Screen
+                    name='Training'
+                    component={TrainingScreen}
                     options={{
                         title: 'Detail',
                         headerTitleAlign: 'center',
